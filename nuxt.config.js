@@ -38,7 +38,8 @@ export default {
     plugins: [
         '@/plugins/element-ui',
         '~plugins/alert.js',
-        '~api/index.js'
+        '~plugins/api/request.js',
+        '~plugins/config.js'
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
