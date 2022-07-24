@@ -1,138 +1,110 @@
 <template>
-    <div class="form_main_wrap" id="main_fullbg">
-        <div class="mainwrap"></div>
+    <div class="form_main_wrap">
         <div class="page_title">
             <h2>회원가입</h2>
         </div>
         <div class="form_white">
-            <form>
+            <el-form @submit="checkValidator()" :model="registerForm" status-icon ref="registerForm" >
                 <div class="form-group p-relative">
                     <label for="nickname">사용 닉네임</label>
                     <el-input type="text" class="auth-input" id="nickname"
-                              v-model="nickname" placeholder="닉네임을 작성해주세요"
-                              @input="setData('nickname',nickname)"/>
-                    <div class="validation" v-if="validation.hasError('nickname')">
-                        {{ validation.firstError('nickname') }}
-                    </div>
+                              v-model="registerForm.nickname" placeholder="닉네임을 작성해주세요" />
+                    <div class="validation"></div>
                 </div>
                 <div class="form-group p-relative">
                     <label for="email">사용하실 이메일 (로그인 이메일) </label>
                     <el-input type="email" class="auth-input"
-                              @input="setData('email',email)"
-                              id="email" v-model="email" placeholder="email@email.com"/>
-                    <div class="validation" v-if="validation.hasError('email')">
-                        {{ validation.firstError('email') }}
-                    </div>
+                              id="email" v-model="registerForm.email" placeholder="email@email.com"/>
+                    <div class="validation"></div>
                 </div>
                 <div class="form-group">
                     <div class="p-relative">
                         <label for="password">비밀번호</label>
                         <el-input type="password" class="auth-input" id="password" loading
-                                  @input="setData('password',pwd)"
-                                  v-model="pwd"
+                                  v-model="registerForm.password"
                                   placeholder="비밀번호 입력"/>
-                        <div class="validation" v-if="validation.hasError('pwd')">
-                            {{ validation.firstError('pwd') }}
-                        </div>
+                        <div class="validation"></div>
                     </div>
                     <div class="p-relative">
                         <label for="password_confirm">비밀번호 확인</label>
                         <el-input type="password" class="auth-input" id="password_confirm"
-                                  v-model="pwdChk"
-                                  placeholder="비밀번호 확인"
-                                  @input="setData('password_confirm', pwdChk)"/>
-                        <div class="validation" v-if="validation.hasError('pwdChk')">
-                            {{ validation.firstError('pwdChk') }}
+                                  v-model="registerForm.password_confirm"
+                                  placeholder="비밀번호 확인" />
+                        <div class="validation"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="p-relative">
+                            <label for="addr">지역</label>
+                            <el-input type="text" class="auth-input" id="addr"
+                                      v-model="registerForm.addr" placeholder="지역을 입력해주세요"/>
+                            <div class="validation"></div>
+                        </div>
+                        <div class="p-relative">
+                            <label for="addr1">지역2</label>
+                            <el-input type="text" class="auth-input" id="addr1"
+                                      v-model="registerForm.addr1" placeholder="지역을 입력해주세요"/>
+                            <div class="validation"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="p-relative">
-                            <label for="address">지역</label>
-                            <el-input type="text" class="auth-input" id="address"
-                                      v-model="address" placeholder="지역을 입력해주세요"/>
-                            <div class="validation" v-if="validation.hasError('address')">
-                                {{ validation.firstError('address') }}
-                            </div>
+                            <label for="addr">생일</label>
+                            <el-select type="text" class="auth-input" id="birthday"
+                                      v-model="registerForm.birthday" placeholder="생년월일을 입력해주세요"/>
+                            <div class="validation"></div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="p-relative">
-                        <label for="tag">관심태그(선택)</label>
-                        <div class="cursor in_block tag_box" @click="deleteTags(tag)"
-                            v-if="tags.length > 0" v-for="(tag, t_idx) in tags" :key="tag.t_no">
-                            {{ tag }}
-                            <i class="el-icon-close"></i>
-                        </div>
-                        <br/>
-                        <el-input type="text" class="tag-input" id="tag" @input="setData('tag', tag)"
-                                  @keyup.enter.native="addTags(tag)"
-                                  v-model="tag" placeholder="#태그"/>
-                        <div class="validation" v-if="validation.hasError('tag')">
-                            {{ validation.firstError('tag') }}
-                        </div>
-                    </div>
-                </div>
-                <el-button type="submit" @click="checkValidator"
-                           class="btn btn-primary">회원가입
-                </el-button>
+                <el-button type="submit" class="btn btn-primary">회원가입</el-button>
                 <el-button class="btn btn-primary" @click="$router.replace('/')">취소</el-button>
-            </form>
+            </el-form>
         </div>
     </div>
 </template>
 
 <script>
-import memberValidator from "@/mixins/validators/memberValidator";
-
 export default {
     name: "RegisterPage",
     transition: 'fade',
-    mixins: [memberValidator],
     data() {
         return {
-            nickname: "",
-            email: "",
-            password: "",
-            password_confirm: "",
-            address: "",
-            tag: "",
-            tags: [],
+            registerForm: {
+                nickname: "",
+                email: "",
+                password: "",
+                password_confirm: "",
+                addr: "",
+                addr1: "",
+                birthday: "",
+            },
         }
+    },
+    mounted() {
+        this.$nuxt.$loading.start();
     },
     methods: {
         setData(key, value) {
             this[key] = value;
         },
         checkValidator() {
-            this.$validate(['nickname', 'email', 'pwd', 'pwdChk', 'address']).then((res) => {
-                if (res) {
-                    this.register();
-                } else {
-                    this.$alert.createAlert({
-                        title: '알림',
-                        content: '저런... 어떤 것들이 잘못되었어요.',
-                        type: 'warning',
-                    });
-                }
-            });
+            console.log(">a")
         },
         async register() {
             let params = {
-                'nickname': this.nickname,
-                'email': this.email,
-                'password': this.password,
-                'address': this.address,
+                'nickname': this.registerForm.nickname,
+                'email': this.registerForm.email,
+                'password': this.registerForm.password,
+                'addr': this.registerForm.addr,
+                'addr1': this.registerForm.addr1,
+                'birthday': this.registerForm.birthday,
             }
-            if (this.tags.length > 0) {
-                params['tags'] = this.tags;
-            }
+
             try {
                await this.$api.$auth.createMember(params).then(res => {
                     if (res.info.type === true) {
                         this.$alert.createAlert({
                             title: '축하드립니다!',
-                            content: '모닥불 회원이 되신걸 환영합니다.',
+                            content: '캠핑친구24 회원이 되신걸 환영합니다.',
                             btnText: '확인',
                             hide: () => {
                                 this.$router.replace('/auth/login');
@@ -156,17 +128,7 @@ export default {
                 },
             });
         },
-        addTags(tag) {
-            if (this.tags.length >= 5) return;
 
-            this.$validate(['tag']).then((res) => {
-                if (res) this.tags.push(tag);
-            });
-            this.tag = '';
-        },
-        deleteTags(tag) {
-            this.tags.splice(this.tags.indexOf(tag), 1);
-        },
     },
 }
 </script>

@@ -1,84 +1,6 @@
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900);
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&subset=korean);
-//@import url(https://fonts.googleapis.com/css?family=Noto+Sans+CJK+KR:100,300,400,500,700,900&subset=korean);
-//@import url(https://fonts.googleapis.com/css?family=Noto+Sans+CJK+KR:100,300,400,500,700,900&subset=korean);
-@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
-
-/* titillium-web-regular - latin */
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
-/* using
-font-family: 'Titillium Web', sans-serif;
-font-weight: 200~900
-*/
 
 
-/*
-::: 선거 테마 컬러코드 :::
-메인 폰트 컬러 #191919
-진한 회색 폰트 #707070
-메인 갈색 컬러 #6f594c
-서브 갈색 컬러 #b99077
-강조 빨강 #8d0404
-
-중간 그레이 #b7b7b7 (주로 실선)
-연한 그레이 #f6f6f6 (주로 배경)
-*/
-
-
-/* 기훈 : 사용하고자 하는 곳에 변수
-ex) $variable-name 를  넣으면됩니다.
-h1 {
-  font-family: $Lobster;
-  font-size: $font-size-root;
-  color: $color-main;
-}
-*/
-/*******************************************************************
-// 설명:프로젝트 전체에 적용되는 변수에 대해 정의함F
-// 주의:컴포넌트 갯수 만큼 실행되기 때문에 변수에 대해서만 정의해야합니다.
-********************************************************************/
-// 사용자 정의 변수
-// 여기에 메인컬러,서브컬러 등의 임의 변수를 설정하면 SCSS 어디에서도 사용할 수 있습니다.
-
-// 폰트
-$NotoSansCJK : 'Noto Sans KR' !important;
-$body-font-family:"Noto Sans KR";
-$title-font-family:"Noto Sans KR";
-
-// 폰트 사이즈
-$font-size-root: 14px; // default
-$font-size-title: 26px; //title font-size
-$font-size-subTitle: 18px;//sub-title-font-size
-$font-size-content-name: 16px;//sub-title-font-size
-$font-size-main_Title: 36px;//main-title-font-size
-$font-size-validation:15px;//validation-font-size
-
-// 폰트 컬러
-$color-main:#191919; // main font
-$color-sub:#191919; // sub font
-$placeholder-color: #707070; //placeholder 컬러
-
-// 폰트 굵기
-$font-bold: 700; // font-weight 700 (Bold)
-$font-medium: 500; // font-weight 500 (Medium)
-$font-regular: 400; // font-weight 400 (regular)
-
-// 버튼 컬러
-$submit-btn: #6f594c; // submit 확인 버튼
-$cancel-btn: #707070; // submit 확인 버튼
-
-// 보더 컬러
-$border-color: #e5e5e5; // border color 테두리 컬러
-
-* {
-  // font-family:  'NanumSquare';
-  font-family: $NotoSansCJK;
-  //font-size:10px;
-  //letter-spacing: -0.05em;
-  //color:#191919;
-  --swiper-theme-color:#191919 !important;
-}
 .pointer{
   cursor:pointer;
 }
@@ -95,6 +17,7 @@ $border-color: #e5e5e5; // border color 테두리 컬러
 .noto{font-family:"Noto Sans KR" !important;}
 
 //alret 메시지 클래스 생성하였습니다.
+
 .alret_wrap{
   width:100%; height:100vh;
   position:fixed;
@@ -811,45 +734,6 @@ h2 {
     padding: 0 14px !important;
   }
 }
-// 데이트 타임
-.date_time{
-  width: 142.5px !important;
-  height: 35px;
-  border: 1px solid #eeeeee;
-  display: inline-block;
-  vertical-align: middle;
-
-  .el-input__inner{
-    border: unset;
-    padding-left: 15px !important;
-    width: 100%;
-    height: 100%;
-    font-family: $NotoSansCJK;
-    font-weight: 350;
-    font-size: 13px;
-    color: #191919;
-    &::placeholder {
-      color: #b7b7b7;
-    }
-  }
-  .el-input__prefix{
-    background-position: 0px 8px;
-    background-repeat: no-repeat;
-    background-size: 16px 17px;
-    //background-image: url("./assets/image/calendar_icon.png");
-    left: 112px;
-
-    .el-input__icon{
-      &:before{
-        display: none;
-      }
-    }
-  }
-  .el-input__suffix{
-    display: none;
-  }
-
-}
 .validation{
     font-size: 12px;
     color: #960f0f;
@@ -865,57 +749,6 @@ h2 {
   text-align: center;
 }
 
-
-//에디터관련 css
-.note-editor {
-  border-radius:10px;
-  height: 100%;
-  border: 1px solid #d8d8d8 !important;
-  .note-toolbar {
-    height: 40px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: none;
-    padding: 5px 10px;
-
-    button {
-      border: none;
-
-      .note-icon-font {
-        padding: 0 5px 4px;
-      }
-    }
-
-    .note-dropdown-menu {
-      min-width:70px;
-      .note-dropdown-item {
-        margin: 0;
-        padding: 5px 0;
-      }
-    }
-  }
-
-  .note-editing-area {
-    height: calc(100% - 50px);
-
-    .note-placeholder {
-      display: none !important;
-    }
-
-    .note-editable {
-      padding: 10px 20px !important;
-      height: 100% !important;
-    }
-  }
-
-  .note-statusbar {
-    display: none;
-  }
-}
-
-.note-dropdown-menu{
-  min-width:50px !important;
-}
 
 .el-icon-cancel-btn {
   cursor: pointer;
@@ -1275,7 +1108,6 @@ h2 {
 
 Loading STYLE
 */
-#link {color: #DB4646;display:block;font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;text-align:center; text-decoration: none;}
 /*#link:hover {color: #CCCCCC}*/
 
 /*#link, #link:hover {-webkit-transition: color 0.5s ease-out;-moz-transition: color 0.5s ease-out;-ms-transition: color 0.5s ease-out;-o-transition: color 0.5s ease-out;transition: color 0.5s ease-out;}*/
@@ -1349,41 +1181,49 @@ body {background: #333333;}
   50% {opacity: 1}
   100%{opacity: 0}
 }
-.loading-container,
-.loading {
-  height: 100px;
-  position: relative;
-  width: 100px;
-  border-radius: 100%;
+
+.loading-wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #00000050;
+    z-index: 12;
+
+    .loading {
+      height: 100px;
+      position: relative;
+      width: 100px;
+      border-radius: 100%;
+    }
+
+    .loading-container {
+      position: fixed;
+      top:50%;
+      left:50%;
+      -webkit-transform:translate(0%,-50%);
+      transform:translate(0%,-50%);
+      z-index:13;
+    }
 }
 
 
-.loading-container {
-  position: fixed;
-  top:50%;
-  left:230px;
-  -webkit-transform:translate(0%,-50%);
-  transform:translate(0%,-50%);
-  z-index:999;
-}
-
 .loading {
-  zoom:.5;
-  border: 2px solid transparent;
-  border-color: transparent #fff transparent #FFF;
-  -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
-  -moz-transform-origin: 50% 50%;
-  -o-animation: rotate-loading 1.5s linear 0s infinite normal;
-  -o-transform-origin: 50% 50%;
-  -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
-  -webkit-transform-origin: 50% 50%;
-  animation: rotate-loading 1.5s linear 0s infinite normal;
-  transform-origin: 50% 50%;
+    zoom: .5;
+    border: 2px solid transparent;
+    border-color: transparent #DB4646 transparent #DB4646;
+    -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+    -moz-transform-origin: 50% 50%;
+    -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+    -o-transform-origin: 50% 50%;
+    -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+    -webkit-transform-origin: 50% 50%;
+    animation: rotate-loading 1.5s linear 0s infinite normal;
+    transform-origin: 50% 50%;
 }
 
 /*.loading-container:hover */
-.loading {
-  border-color: transparent #DB4646 transparent #DB4646;
+.loading:hover {
+    border-color: #fff #DB4646 #fff #DB4646;
 }
 /*.loading-container:hover */
 .loading,
@@ -1393,23 +1233,6 @@ body {background: #333333;}
   -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-}
-
-#loading-text {
-  -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
-  -o-animation: loading-text-opacity 2s linear 0s infinite normal;
-  -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
-  animation: loading-text-opacity 2s linear 0s infinite normal;
-  color: #000000;
-  font-size: 10px;
-  font-weight: bold;
-  margin-top: 45px;
-  opacity: 0;
-  position: absolute;
-  text-align: center;
-  text-transform: uppercase;
-  top: 0;
-  width: 30px;
 }
 
 
@@ -1438,38 +1261,3 @@ a {
     box-shadow: #8859ff 0px 0px 0px 1px inset;
   }
 }
-.tag-input {
-    width: 80px;
-    height: 35px;
-    input {
-        height: 100%;
-        color: #3a3a3a;
-        border-radius: 5px;
-        &:active {
-            box-shadow: #8859ff 0px 0px 0px 1px inset;
-        }
-        &:focus {
-            box-shadow: #8859ff 0px 0px 0px 1px inset;
-        }
-    }
-}
-.tag_box {
-    width: fit-content;
-    height: 35px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #3a3a3a;
-    border: 1px solid #8859ff;
-    border-radius: 16px;
-    padding: 0 16px;
-    margin-right: 6px;
-    margin-bottom: 6px;
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    &:last-of-type {
-        margin-right: 0;
-    }
-}
-
