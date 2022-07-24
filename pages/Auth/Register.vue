@@ -4,8 +4,7 @@
             <h2>회원가입</h2>
         </div>
         <div class="form_white">
-            <el-form @submit="checkValidator()" :model="registerForm" :rules="rules"
-                     status-icon ref="registerForm" >
+            <el-form :model="registerForm" :rules="rules" status-icon ref="registerForm" >
                 <el-form-item label="닉네임" prop="nickname">
                     <el-input type="text" class="auth-input" id="nickname" autocomplete="off"
                               v-model="registerForm.nickname" placeholder="닉네임을 작성해주세요" />
@@ -36,7 +35,7 @@
                     <el-select class="auth-input" id="birthday"
                                v-model="registerForm.birthday" placeholder="생년월일을 입력해주세요"/>
                 </el-form-item>
-                <el-button type="submit" class="btn btn-primary">회원가입</el-button>
+                <el-button type="submit" class="btn btn-primary" @click="checkValidator('registerForm')">회원가입</el-button>
                 <el-button class="btn btn-primary" @click="$router.replace('/')">취소</el-button>
             </el-form>
         </div>
@@ -44,6 +43,7 @@
 </template>
 
 <script>
+
 export default {
     name: "RegisterPage",
     transition: 'fade',
@@ -102,6 +102,17 @@ export default {
                 callback();
             }
         };
+        let validatePasswordConfirm = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('비밀번호를 입력해주세요.'));
+            } else {
+                if (value !== this.registerForm.password) {
+                    callback(new Error('비밀번호가 일치하지 않습니다.'));
+                } else {
+                    callback();
+                }
+            }
+        };
         return {
             registerForm: {
                 nickname: "",
@@ -116,6 +127,7 @@ export default {
                 nickname: [ { validator: validateNickname, trigger: 'blur' }, ],
                 email: [ { validator: validateEmail, trigger: 'blur' }, ],
                 password: [ { validator: validatePassword, trigger: 'blur' }, ],
+                password_confirm: [ { validator: validatePasswordConfirm, trigger: 'blur' }, ],
             },
 
         }
@@ -126,8 +138,14 @@ export default {
         setData(key, value) {
             this[key] = value;
         },
-        checkValidator() {
-            console.log(">a")
+        checkValidator(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.register();
+                } else {
+                    this.failedAlert();
+                }
+            });
         },
         async register() {
             let params = {

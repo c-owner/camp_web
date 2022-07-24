@@ -46,9 +46,8 @@ export default {
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
-        // Simple usage
-        '@nuxtjs/vuetify'
         // With options
+        '@vueuse/nuxt',
     ],
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
@@ -71,5 +70,13 @@ export default {
         transpile: [/^element-ui/]
     },
 
-    loading: '~/components/LoadingBar.vue'
+    loading: '~/components/LoadingBar.vue',
+
+    vue: {
+        config: {
+            productionTip: false,
+            devtools: true,
+        }
+    },
+
 }

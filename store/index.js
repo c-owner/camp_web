@@ -1,15 +1,16 @@
-// import Vue from 'vue'
-// import Vuex from 'vuex'
+export const state = () => ({
+    key: '',
 
-// import userInfo from "./user/UserInfo"
+});
 
-// Vue.use(Vuex)
+export const mutations = {
 
-// export default new Vuex.Store({
-//   state: {},
-//   mutations: {},
-//   actions: {},
-//   modules: {
-//     userInfo,
-//   }
-// })
+}
+
+export const getters = {
+
+}
+
+export const actions = {
+
+}
