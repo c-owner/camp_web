@@ -4,57 +4,38 @@
             <h2>회원가입</h2>
         </div>
         <div class="form_white">
-            <el-form @submit="checkValidator()" :model="registerForm" status-icon ref="registerForm" >
-                <div class="form-group p-relative">
-                    <label for="nickname">사용 닉네임</label>
-                    <el-input type="text" class="auth-input" id="nickname"
+            <el-form @submit="checkValidator()" :model="registerForm" :rules="rules"
+                     status-icon ref="registerForm" >
+                <el-form-item label="닉네임" prop="nickname">
+                    <el-input type="text" class="auth-input" id="nickname" autocomplete="off"
                               v-model="registerForm.nickname" placeholder="닉네임을 작성해주세요" />
-                    <div class="validation"></div>
-                </div>
-                <div class="form-group p-relative">
-                    <label for="email">사용하실 이메일 (로그인 이메일) </label>
-                    <el-input type="email" class="auth-input"
+                </el-form-item>
+                <el-form-item label="사용하실 이메일 (로그인 이메일)" prop="email">
+                    <el-input type="email" class="auth-input" autocomplete="off"
                               id="email" v-model="registerForm.email" placeholder="email@email.com"/>
-                    <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                    <div class="p-relative">
-                        <label for="password">비밀번호</label>
-                        <el-input type="password" class="auth-input" id="password" loading
-                                  v-model="registerForm.password"
-                                  placeholder="비밀번호 입력"/>
-                        <div class="validation"></div>
-                    </div>
-                    <div class="p-relative">
-                        <label for="password_confirm">비밀번호 확인</label>
-                        <el-input type="password" class="auth-input" id="password_confirm"
-                                  v-model="registerForm.password_confirm"
-                                  placeholder="비밀번호 확인" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="p-relative">
-                            <label for="addr">지역</label>
-                            <el-input type="text" class="auth-input" id="addr"
-                                      v-model="registerForm.addr" placeholder="지역을 입력해주세요"/>
-                            <div class="validation"></div>
-                        </div>
-                        <div class="p-relative">
-                            <label for="addr1">지역2</label>
-                            <el-input type="text" class="auth-input" id="addr1"
-                                      v-model="registerForm.addr1" placeholder="지역을 입력해주세요"/>
-                            <div class="validation"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="p-relative">
-                            <label for="addr">생일</label>
-                            <el-select type="text" class="auth-input" id="birthday"
-                                      v-model="registerForm.birthday" placeholder="생년월일을 입력해주세요"/>
-                            <div class="validation"></div>
-                        </div>
-                    </div>
-                </div>
+                </el-form-item>
+                <el-form-item label="비밀번호" prop="password">
+                    <el-input type="password" class="auth-input" id="password" loading
+                              v-model="registerForm.password"
+                              placeholder="비밀번호 입력"/>
+                </el-form-item>
+                <el-form-item label="비밀번호 확인" prop="password_confirm">
+                    <el-input type="password" class="auth-input" id="password_confirm" loading
+                              v-model="registerForm.password_confirm"
+                              placeholder="비밀번호 확인"/>
+                </el-form-item>
+                <el-form-item label="지역" prop="addr">
+                    <el-input type="text" class="auth-input" id="addr"
+                              v-model="registerForm.addr" placeholder="지역을 입력해주세요"/>
+                </el-form-item>
+                <el-form-item label="지역2" prop="addr1">
+                    <el-input type="text" class="auth-input" id="addr1"
+                              v-model="registerForm.addr1" placeholder="지역을 입력해주세요"/>
+                </el-form-item>
+                <el-form-item label="생일" prop="birthday">
+                    <el-select class="auth-input" id="birthday"
+                               v-model="registerForm.birthday" placeholder="생년월일을 입력해주세요"/>
+                </el-form-item>
                 <el-button type="submit" class="btn btn-primary">회원가입</el-button>
                 <el-button class="btn btn-primary" @click="$router.replace('/')">취소</el-button>
             </el-form>
@@ -67,6 +48,60 @@ export default {
     name: "RegisterPage",
     transition: 'fade',
     data() {
+        let validateEmail = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('이메일을 입력해주세요'));
+            } else {
+                if (!/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/.test(value)) {
+                    callback(new Error('올바른 이메일 형식이 아닙니다.'));
+                } else {
+                    callback();
+                }
+            }
+        }
+        let validateNickname = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('닉네임을 입력해주세요.'));
+            } else {
+                if (value.length < 2) {
+                    callback(new Error('닉네임은 2자 이상이어야 합니다.'));
+                }
+                if (value.length > 20) {
+                    callback(new Error('닉네임은 8자 이하로 적어주세요.'));
+                }
+                let reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/`]/gim;
+                value = value.trimStart();
+                value = value.trimEnd();
+                this.registerForm.username = value;
+                if (reg.test(value)) {
+                    callback(new Error('이름에는 특수문자를 사용할 수 없습니다.'));
+                }
+
+                callback();
+            }
+        };
+        let validatePassword = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('비밀번호를 입력해주세요.'));
+            } else {
+                if (value.length < 6) {
+                    callback(new Error('비밀번호는 6자 이상이어야 합니다.'));
+                }
+                if (value.length > 20) {
+                    callback(new Error('비밀번호는 20자 이하이어야 합니다.'));
+                }
+                if (value.search(/[0-9]/) < 0) {
+                    callback(new Error('비밀번호는 숫자, 영어, 특수문자를 포함해야 합니다.'));
+                }
+                if (value.search(/[a-z]/) < 0) {
+                    callback(new Error('비밀번호는 숫자, 영어, 특수문자를 포함해야 합니다.'));
+                }
+                if (value.search(/[~!@#$%^&*()_+|<>?:{}]/) < 0) {
+                    callback(new Error('비밀번호는 숫자, 영어, 특수문자를 포함해야 합니다.'));
+                }
+                callback();
+            }
+        };
         return {
             registerForm: {
                 nickname: "",
@@ -77,10 +112,15 @@ export default {
                 addr1: "",
                 birthday: "",
             },
+            rules: {
+                nickname: [ { validator: validateNickname, trigger: 'blur' }, ],
+                email: [ { validator: validateEmail, trigger: 'blur' }, ],
+                password: [ { validator: validatePassword, trigger: 'blur' }, ],
+            },
+
         }
     },
     mounted() {
-        this.$nuxt.$loading.start();
     },
     methods: {
         setData(key, value) {
@@ -134,6 +174,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .form_white {
     width: 800px;
     position: absolute;
@@ -147,18 +188,5 @@ export default {
     border-radius: 4px;
     box-shadow: #191919 0px 0px 10px;
     padding: 30px
-}
-
-form label {
-    font-size: 16px;
-    color: #222222;
-    font-weight: 500;
-    margin-bottom: 5px;
-    display: block;
-    cursor: pointer;
-}
-
-.el-input {
-    margin-bottom: 30px;
 }
 </style>
