@@ -23,7 +23,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.19.3",
     "element-ui": "^2.15.8",
-    "node-sass": "^6.0.1",
+    "firebase": "^10.12.0",
     "nuxt": "^2.15.8",
     "nuxt-sweetalert2": "^1.0.0",
     "sass-loader": "^10.2.1",
